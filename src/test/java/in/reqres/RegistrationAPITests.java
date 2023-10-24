@@ -74,7 +74,7 @@ public class RegistrationAPITests {
 
     @Test
     @DisplayName("Negative Test: Empty Email")
-    void emptyNameUnsuccessfulRegistrationTest() {
+    void emptyEmailUnsuccessfulRegistrationTest() {
         given()
                 .log().uri()
                 .log().method()

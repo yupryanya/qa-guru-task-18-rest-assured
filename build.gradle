@@ -2,7 +2,7 @@ plugins {
     id 'java'
 }
 
-group = ''
+group = 'reqres-in'
 
 repositories {
     mavenCentral()
@@ -17,7 +17,7 @@ compileTestJava {
 
 dependencies {
     testImplementation (
-            'com.codeborne:selenide:6.17.1',
+            'io.rest-assured:rest-assured:5.3.1',
             'org.junit.jupiter:junit-jupiter:5.10.0',
             'org.slf4j:slf4j-simple:2.0.7'
     )

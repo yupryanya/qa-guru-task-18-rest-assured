@@ -37,14 +37,14 @@ public class RegistrationAPITests {
     }
 
     @Test
-    @DisplayName("Negative Test: Incorrect Password")
-    void invalidPasswordTest() {
+    @DisplayName("Negative Test: Invalid Password")
+    void invalidPasswordUnsuccessfulRegistrationTest() {
         given()
                 .log().uri()
                 .log().method()
                 .log().body()
                 .contentType(ContentType.JSON)
-                .body("{\"email\": \"michael.lawson@reqres.in\", \"password\": \"incorrect_password\" }")
+                .body("{\"email\": \"michael.lawson@reqres.in\", \"password\": \"invalid_password\" }")
                 .when()
                 .post("/register")
                 .then()
@@ -56,13 +56,13 @@ public class RegistrationAPITests {
 
     @Test
     @DisplayName("Negative Test: Non-existent User")
-    void testUnsuccessfulRegistration() {
+    void nonExistentUserUnsuccessfulRegistrationTest() {
         given()
                 .log().uri()
                 .log().method()
                 .log().body()
                 .contentType(ContentType.JSON)
-                .body("{ \"email\": \"unexisted.user@email.com\", \"password\": \"P@ssw0rd\" }")
+                .body("{ \"email\": \"nonexistent.user@email.com\", \"password\": \"P@ssw0rd\" }")
                 .when()
                 .post("/register")
                 .then()
@@ -74,7 +74,7 @@ public class RegistrationAPITests {
 
     @Test
     @DisplayName("Negative Test: Empty Email")
-    void missingNameFieldTest() {
+    void emptyNameUnsuccessfulRegistrationTest() {
         given()
                 .log().uri()
                 .log().method()
@@ -92,7 +92,7 @@ public class RegistrationAPITests {
 
     @Test
     @DisplayName("Negative Test: Empty Password")
-    void emptyNameAndPasswordTest() {
+    void emptyPasswordUnsuccessfulRegistrationTest() {
         given()
                 .log().uri()
                 .log().method()

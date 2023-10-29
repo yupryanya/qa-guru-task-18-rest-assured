@@ -1,6 +1,6 @@
 package in.reqres;
 
-import in.reqres.models.RegisterBodyModel;
+import in.reqres.models.RegisterRequestModel;
 import in.reqres.models.SuccessfulRegisterResponseModel;
 import in.reqres.models.UnsuccessfulRegisterResponseModel;
 import org.junit.jupiter.api.DisplayName;
@@ -18,7 +18,7 @@ public class RegistrationTests {
     @Test
     @DisplayName("Positive Test: Successful Registration")
     void successfulRegistrationTest() {
-        RegisterBodyModel registerData = new RegisterBodyModel();
+        RegisterRequestModel registerData = new RegisterRequestModel();
         registerData.setEmail("michael.lawson@reqres.in");
         registerData.setPassword("P@ssw0rd");
 
@@ -42,7 +42,7 @@ public class RegistrationTests {
     })
     @DisplayName("Negative Test: Invalid Password")
     void invalidPasswordRegistrationTest(String email, String password, String errorMessage) {
-        RegisterBodyModel registerData = new RegisterBodyModel();
+        RegisterRequestModel registerData = new RegisterRequestModel();
         registerData.setEmail(email);
         registerData.setPassword(password);
 
@@ -62,7 +62,7 @@ public class RegistrationTests {
     @Test
     @DisplayName("Negative Test: Non-existent User")
     void nonExistentUserUnsuccessfulRegistrationTest() {
-        RegisterBodyModel registerData = new RegisterBodyModel();
+        RegisterRequestModel registerData = new RegisterRequestModel();
         registerData.setEmail("nonexistent.user@email.com");
         registerData.setPassword("P@ssw0rd");
 
@@ -82,7 +82,7 @@ public class RegistrationTests {
     @Test
     @DisplayName("Negative Test: Empty Email")
     void emptyEmailUnsuccessfulRegistrationTest() {
-        RegisterBodyModel registerData = new RegisterBodyModel();
+        RegisterRequestModel registerData = new RegisterRequestModel();
         registerData.setEmail("");
         registerData.setPassword("P@ssw0rd");
 

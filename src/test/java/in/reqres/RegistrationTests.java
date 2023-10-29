@@ -16,7 +16,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 public class RegistrationTests {
     @Test
-    @DisplayName("Positive Test: Successful Registration")
+    @DisplayName("Successful registration with valid login and username")
     void successfulRegistrationTest() {
         RegisterRequestModel registerData = new RegisterRequestModel();
         registerData.setEmail("michael.lawson@reqres.in");
@@ -40,7 +40,7 @@ public class RegistrationTests {
     @CsvSource({"michael.lawson@reqres.in,   invalid_password, Missing password",
                 "lindsay.ferguson@reqres.in, '',               Missing password"
     })
-    @DisplayName("Negative Test: Invalid Password")
+    @DisplayName("Unsuccessful registartion with invalid password")
     void invalidPasswordRegistrationTest(String email, String password, String errorMessage) {
         RegisterRequestModel registerData = new RegisterRequestModel();
         registerData.setEmail(email);
@@ -60,7 +60,7 @@ public class RegistrationTests {
     }
 
     @Test
-    @DisplayName("Negative Test: Non-existent User")
+    @DisplayName("Unsuccessful registration with non-existent user")
     void nonExistentUserUnsuccessfulRegistrationTest() {
         RegisterRequestModel registerData = new RegisterRequestModel();
         registerData.setEmail("nonexistent.user@email.com");
@@ -80,7 +80,7 @@ public class RegistrationTests {
     }
 
     @Test
-    @DisplayName("Negative Test: Empty Email")
+    @DisplayName("Unsuccessful registration with empty email")
     void emptyEmailUnsuccessfulRegistrationTest() {
         RegisterRequestModel registerData = new RegisterRequestModel();
         registerData.setEmail("");

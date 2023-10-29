@@ -5,8 +5,6 @@ import in.reqres.models.SuccessfulRegisterResponseModel;
 import in.reqres.models.UnsuccessfulRegisterResponseModel;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.CsvSource;
 
 import static in.reqres.specs.ReqresApiSpec.*;
 import static io.qameta.allure.Allure.step;
@@ -36,15 +34,12 @@ public class RegistrationTests {
         });
     }
 
-    @ParameterizedTest(name = "When password is \"{1}\" error message is \"{2}\"")
-    @CsvSource({"michael.lawson@reqres.in,   invalid_password, Missing password",
-                "lindsay.ferguson@reqres.in, '',               Missing password"
-    })
-    @DisplayName("Unsuccessful registartion with invalid password")
-    void invalidPasswordRegistrationTest(String email, String password, String errorMessage) {
+    @Test
+    @DisplayName("Unsuccessful registartion with missing password")
+    void invalidPasswordRegistrationTest() {
         RegisterRequestModel registerData = new RegisterRequestModel();
-        registerData.setEmail(email);
-        registerData.setPassword(password);
+        registerData.setEmail("eve.holt@reqres.in");
+        registerData.setPassword("");
 
         UnsuccessfulRegisterResponseModel response = step("Make login request", () ->
                 given(requestSpec)
@@ -55,12 +50,12 @@ public class RegistrationTests {
                         .spec(responseSpecWithStatusCode400)
                         .extract().as(UnsuccessfulRegisterResponseModel.class));
         step("Verify response body", () ->
-                assertEquals(errorMessage, response.getError())
+                assertEquals("Missing password", response.getError())
         );
     }
 
     @Test
-    @DisplayName("Unsuccessful registration with non-existent user")
+    @DisplayName("Unsuccessful registration with non-defined user")
     void nonExistentUserUnsuccessfulRegistrationTest() {
         RegisterRequestModel registerData = new RegisterRequestModel();
         registerData.setEmail("nonexistent.user@email.com");

@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 
-import static in.reqres.specs.RegisterSpec.*;
+import static in.reqres.specs.ReqresApiSpec.*;
 import static io.qameta.allure.Allure.step;
 import static io.restassured.RestAssured.given;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -23,12 +23,12 @@ public class RegistrationTests {
         registerData.setPassword("P@ssw0rd");
 
         SuccessfulRegisterResponseModel response = step("Make login request", () ->
-                given(registerRequestSpec)
+                given(requestSpec)
                         .body(registerData)
                         .when()
                         .post("/register")
                         .then()
-                        .spec(registerResponseSpec)
+                        .spec(responseSpecWithStatusCode200)
                         .extract().as(SuccessfulRegisterResponseModel.class));
         step("Verify response body", () -> {
             assertNotNull("ID should not be null", response.getId());
@@ -47,12 +47,12 @@ public class RegistrationTests {
         registerData.setPassword(password);
 
         UnsuccessfulRegisterResponseModel response = step("Make login request", () ->
-                given(registerRequestSpec)
+                given(requestSpec)
                         .body(registerData)
                         .when()
                         .post("/register")
                         .then()
-                        .spec(invalidData400ResponseSpec)
+                        .spec(responseSpecWithStatusCode400)
                         .extract().as(UnsuccessfulRegisterResponseModel.class));
         step("Verify response body", () ->
                 assertEquals(errorMessage, response.getError())
@@ -67,12 +67,12 @@ public class RegistrationTests {
         registerData.setPassword("P@ssw0rd");
 
         UnsuccessfulRegisterResponseModel response = step("Make login request", () ->
-                given(registerRequestSpec)
+                given(requestSpec)
                         .body(registerData)
                         .when()
                         .post("/register")
                         .then()
-                        .spec(invalidData400ResponseSpec)
+                        .spec(responseSpecWithStatusCode400)
                         .extract().as(UnsuccessfulRegisterResponseModel.class));
         step("Verify response body", () ->
                 assertEquals("Note: Only defined users succeed registration", response.getError())
@@ -87,12 +87,12 @@ public class RegistrationTests {
         registerData.setPassword("P@ssw0rd");
 
         UnsuccessfulRegisterResponseModel response = step("Make login request", () ->
-                given(registerRequestSpec)
+                given(requestSpec)
                         .body(registerData)
                         .when()
                         .post("/register")
                         .then()
-                        .spec(invalidData400ResponseSpec)
+                        .spec(responseSpecWithStatusCode400)
                         .extract().as(UnsuccessfulRegisterResponseModel.class));
         step("Verify response body", () ->
                 assertEquals("Missing email or username", response.getError())

@@ -10,8 +10,8 @@ import static io.restassured.filter.log.LogDetail.BODY;
 import static io.restassured.filter.log.LogDetail.STATUS;
 import static io.restassured.http.ContentType.JSON;
 
-public class UserListSpec {
-    public static RequestSpecification userListRequestSpec = with()
+public class ReqresApiSpec {
+    public static RequestSpecification requestSpec = with()
             .filter(withCustomTemplates())
             .log().uri()
             .log().method()
@@ -20,9 +20,15 @@ public class UserListSpec {
             .baseUri("https://reqres.in")
             .basePath("/api");
 
-    public static ResponseSpecification userListResponseSpec = new ResponseSpecBuilder()
+    public static ResponseSpecification responseSpecWithStatusCode200 = new ResponseSpecBuilder()
             .log(STATUS)
             .log(BODY)
             .expectStatusCode(200)
+            .build();
+
+    public static ResponseSpecification responseSpecWithStatusCode400 = new ResponseSpecBuilder()
+            .log(STATUS)
+            .log(BODY)
+            .expectStatusCode(400)
             .build();
 }

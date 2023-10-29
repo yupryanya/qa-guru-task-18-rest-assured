@@ -5,9 +5,8 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
+import static in.reqres.specs.ReqresApiSpec.*;
 
-import static in.reqres.specs.UserListSpec.userListRequestSpec;
-import static in.reqres.specs.UserListSpec.userListResponseSpec;
 import static io.qameta.allure.Allure.step;
 import static io.restassured.RestAssured.given;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -17,11 +16,11 @@ public class UserListTests {
     @DisplayName("User list page contains the expected number of items per page")
     void userListPaginationTest() {
         UserListResponseModel response = step("Get user list", () ->
-                given(userListRequestSpec)
+                given(requestSpec)
                         .when()
                         .get("/users?page=2")
                         .then()
-                        .spec(userListResponseSpec)
+                        .spec(responseSpecWithStatusCode200)
                         .extract().as(UserListResponseModel.class));
 
         step("Verify response", () -> {
@@ -36,11 +35,11 @@ public class UserListTests {
     @DisplayName("User list contains valid user data")
     void userListContainsCoreectDataTest(int id, String firstName, String lastName, String email) {
         UserListResponseModel response = step("Get user list", () ->
-                given(userListRequestSpec)
+                given(requestSpec)
                         .when()
                         .get("/users?page=2")
                         .then()
-                        .spec(userListResponseSpec)
+                        .spec(responseSpecWithStatusCode200)
                         .extract().as(UserListResponseModel.class));
 
         step("Verify response body contains valid data", () -> {
